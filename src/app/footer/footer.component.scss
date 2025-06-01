@@ -1,0 +1,48 @@
+@import '../../_variables';
+
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+
+.footer {
+  a {
+    text-decoration: none; 
+    color: white;        
+
+    &:hover {
+      text-decoration: underline; 
+    }
+  }
+
+  color: white;
+  font-size: 1rem;
+}
+
+.fw-bold {
+  font-size: 1rem;
+  color: white;
+}
+
+.bi-telephone-fill {
+  font-size: 1.2rem;
+  color: #0074c7,
+  vertical-align middle;
+}
+
+
+.footer-line {
+  height: 1px;
+  width: 90%;
+  background-color: #fff;
+}
