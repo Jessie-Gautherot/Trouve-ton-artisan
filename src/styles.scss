@@ -1,1 +1,114 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+@import "bootstrap/scss/bootstrap";
+
+// Fonts personnalisées
+@font-face {
+  font-family: 'Graphik';
+  src: url('assets/fonts/Graphik-Regular-Trial.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: url('assets/fonts/Graphik-Semibold-Trial.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: url('assets/fonts/Graphik-Bold-Trial.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Styles globaux
+body {
+  font-family: $font-family-base;
+  font-size: 1.6rem;
+  line-height: 1.625;
+  color: $body-color;
+  background-color: $body-bg;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: $headings-color;
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+h2, h3, .bloc-title__title {
+  color: $headings-color;
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+
+.bloc-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;  
+  margin: 4rem 0 2rem;
+  max-width: 80%;
+}
+
+.bloc-title__marker {
+  width: 2rem;
+  height: 0.4rem;
+  border-radius: 2px;
+  
+}
+
+.marker-red {
+  background-color: $line-red;
+}
+
+.marker-green {
+  background-color: $line-green;
+}
+
+.footer {
+  background-color: $primary;
+}
+
+
+
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+    margin-bottom: 1rem;
+
+    &::before {
+      content: "";
+      width: 1rem;
+      height: 0.3rem;
+      background-color: $primary;
+      flex-shrink: 0;
+      border-radius: 2px;
+    }
+  }
+}
+
+ul.no-markers li::before {
+  content: none;
+}
+
+// Media queries (si besoin)
+@media (min-width: 64em) {
+  .c-title-line {
+    margin-left: 7rem;
+  }
+}
