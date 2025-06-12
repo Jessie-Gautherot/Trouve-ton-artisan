@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SearchService } from '../search.service'; // adapte le chemin si besoin
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,19 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  searchTerm = '';
+  name = '';
+  specialty = '';
+  location = '';
+
+  constructor(private searchService: SearchService) {}
+
+  onFilterChange(): void {
+    this.searchService.updateFilters({
+      name: this.name,
+      specialty: this.specialty,
+      location: this.location,
+    });
+  }
 }
+
 

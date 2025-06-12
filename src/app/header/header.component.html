@@ -37,19 +37,54 @@
     </nav>
   </div>
 
-  <!-- Champ de recherche -->
-  <div class="container d-flex justify-content-center py-2 header-bottom">
-    <form role="search" class="w-100" style="max-width: 400px;">
-      <label for="searchInput" class="visually-hidden">Rechercher un artisan</label>
+  <!-- Champs de recherche -->
+<div class="container py-2 header-bottom">
+  <form
+    (ngSubmit)="onFilterChange()"
+    class="row g-2 align-items-center"
+    aria-label="Formulaire de recherche d'artisans"
+  >
+    <div class="col">
+      <label for="inputName" class="visually-hidden">Nom</label>
       <input
-        id="searchInput"
-        type="search"
-        class="form-control w-100 px-3"
-        placeholder="Rechercher un artisan..."
-        [(ngModel)]="searchTerm"
+        type="text"
+        id="inputName"
+        class="form-control"
+        placeholder="Nom"
+        [(ngModel)]="name"
+        name="name"
+        (ngModelChange)="onFilterChange()"
+        aria-label="Filtrer par nom"
       />
-    </form>
-  </div>
+    </div>
+
+    <div class="col">
+      <label for="inputSpecialty" class="visually-hidden">Spécialité</label>
+      <input
+        type="text"
+        id="inputSpecialty"
+        class="form-control"
+        placeholder="Spécialité"
+        [(ngModel)]="specialty"
+        name="specialty"
+        (ngModelChange)="onFilterChange()"
+        aria-label="Filtrer par spécialité"
+      />
+    </div>
+
+    <div class="col">
+      <label for="inputLocation" class="visually-hidden">Localisation</label>
+      <input
+        type="text"
+        id="inputLocation"
+        class="form-control"
+        placeholder="Localisation"
+        [(ngModel)]="location"
+        name="location"
+        (ngModelChange)="onFilterChange()"
+        aria-label="Filtrer par localisation"
+      />
+    </div>
+  </form>
+</div>
 </header>
-
-
