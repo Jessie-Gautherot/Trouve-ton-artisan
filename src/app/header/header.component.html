@@ -1,8 +1,8 @@
 <header class="header shadow-sm bg-white">
   <div class="container py-3">
-    <nav class="navbar navbar-expand-lg p-0">
-      <a routerLink="/" class="navbar-brand fw-bold">
-        <img src="/assets/pictures/Logo.png" alt="Logo du site"/>
+    <nav class="navbar navbar-expand-lg p-0" aria-label="Menu principal">
+      <a routerLink="/" class="navbar-brand fw-bold" title="Accueil">
+        <img src="assets/pictures/Logo.png" alt="Logo du site"/>
       </a>
 
       <!-- Bouton burger -->
@@ -13,30 +13,42 @@
         data-bs-target="#navbarNav"
         aria-controls="navbarNav"
         aria-expanded="false"
-        aria-label="Toggle navigation">
+        aria-label="Ouvrir ou fermer le menu">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <!-- Menu burger -->
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a routerLink="/batiment" class="nav-link">Bâtiment</a></li>
-          <li class="nav-item"><a routerLink="/services" class="nav-link">Services</a></li>
-          <li class="nav-item"><a routerLink="/fabrication" class="nav-link">Fabrication</a></li>
-          <li class="nav-item"><a routerLink="/alimentation" class="nav-link">Alimentation</a></li>
+          <li class="nav-item">
+            <a routerLink="/batiment" class="nav-link" title="Bâtiment">Bâtiment</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/services" class="nav-link" title="Services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/fabrication" class="nav-link" title="Fabrication">Fabrication</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/alimentation" class="nav-link" title="Alimentation">Alimentation</a>
+          </li>
         </ul>
       </div>
     </nav>
   </div>
 
+  <!-- Champ de recherche -->
   <div class="container d-flex justify-content-center py-2 header-bottom">
-    <input
-      type="search"
-      class="form-control"
-      style="max-width: 400px;"
-      placeholder="Rechercher un artisan..."
-      [(ngModel)]="searchTerm"
-    />
+    <form role="search" class="w-100" style="max-width: 400px;">
+      <label for="searchInput" class="visually-hidden">Rechercher un artisan</label>
+      <input
+        id="searchInput"
+        type="search"
+        class="form-control w-100 px-3"
+        placeholder="Rechercher un artisan..."
+        [(ngModel)]="searchTerm"
+      />
+    </form>
   </div>
 </header>
 

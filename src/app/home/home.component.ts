@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { TopArtisanComponent } from '../top-artisan/top-artisan.component';
+
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [TopArtisanComponent,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
