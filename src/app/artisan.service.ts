@@ -45,4 +45,35 @@ export class ArtisanService {
       map(artisans => artisans.find(artisan => artisan.slug === slug))
     );
   }
+
+  // Récupère les artisans d’une catégorie spécifique
+getArtisansByCategory(category: string): Observable<(Artisan & { slug: string })[]> {
+  return this.getArtisans().pipe(
+    map((artisans) =>
+      artisans.filter(
+        (artisan) =>
+          artisan.category.toLowerCase() === category.toLowerCase()
+      )
+    )
+  );
+}
+
+// Récupère les artisans correspondant à la recherche globale (nom, spécialité, ville)
+getFilteredArtisans(filters: {
+  name: string;
+  specialty: string;
+  location: string;
+}): Observable<(Artisan & { slug: string })[]> {
+  return this.getArtisans().pipe(
+    map((artisans) =>
+      artisans.filter((artisan) => {
+        const matchesName = !filters.name || artisan.name.toLowerCase().includes(filters.name.toLowerCase());
+        const matchesSpecialty = !filters.specialty || artisan.specialty.toLowerCase().includes(filters.specialty.toLowerCase());
+        const matchesLocation = !filters.location || artisan.location.toLowerCase().includes(filters.location.toLowerCase());
+
+        return matchesName && matchesSpecialty && matchesLocation;
+      })
+    )
+  );
+}
 }

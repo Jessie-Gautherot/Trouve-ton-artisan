@@ -38,53 +38,59 @@
   </div>
 
   <!-- Champs de recherche -->
-<div class="container py-2 header-bottom">
+ <div class="container py-3 header-bottom">
   <form
     (ngSubmit)="onFilterChange()"
     class="row g-2 align-items-center"
+    role="search"
     aria-label="Formulaire de recherche d'artisans"
   >
-    <div class="col">
-      <label for="inputName" class="visually-hidden">Nom</label>
-      <input
-        type="text"
-        id="inputName"
-        class="form-control"
-        placeholder="Nom"
+    <div class="col-md-3">
+      <label for="nameSelect" class="form-label visually-hidden">Nom</label>
+      <select
+        id="nameSelect"
+        class="form-select"
         [(ngModel)]="name"
         name="name"
-        (ngModelChange)="onFilterChange()"
         aria-label="Filtrer par nom"
-      />
+      >
+        <option value="">Nom</option>
+        <option *ngFor="let nameOption of allNames" [value]="nameOption">{{ nameOption }}</option>
+      </select>
     </div>
 
-    <div class="col">
-      <label for="inputSpecialty" class="visually-hidden">Spécialité</label>
-      <input
-        type="text"
-        id="inputSpecialty"
-        class="form-control"
-        placeholder="Spécialité"
+    <div class="col-md-3">
+      <label for="specialtySelect" class="form-label visually-hidden">Spécialité</label>
+      <select
+        id="specialtySelect"
+        class="form-select"
         [(ngModel)]="specialty"
         name="specialty"
-        (ngModelChange)="onFilterChange()"
         aria-label="Filtrer par spécialité"
-      />
+      >
+        <option value="">Spécialité</option>
+        <option *ngFor="let spec of allSpecialties" [value]="spec">{{ spec }}</option>
+      </select>
     </div>
 
-    <div class="col">
-      <label for="inputLocation" class="visually-hidden">Localisation</label>
-      <input
-        type="text"
-        id="inputLocation"
-        class="form-control"
-        placeholder="Localisation"
+    <div class="col-md-3">
+      <label for="locationSelect" class="form-label visually-hidden">Localisation</label>
+      <select
+        id="locationSelect"
+        class="form-select"
         [(ngModel)]="location"
         name="location"
-        (ngModelChange)="onFilterChange()"
         aria-label="Filtrer par localisation"
-      />
+      >
+        <option value="">Localisation</option>
+        <option *ngFor="let loc of allLocations" [value]="loc">{{ loc }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-3 text-end">
+      <button type="submit" class="btn btn-primary w-100" aria-label="Lancer la recherche">
+        Rechercher
+      </button>
     </div>
   </form>
 </div>
-</header>

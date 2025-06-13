@@ -1,0 +1,27 @@
+<div class="container my-4">
+  <h2 class="mb-4">Résultats de recherche</h2>
+
+  <div *ngIf="artisans.length === 0">
+    <p>Aucun artisan trouvé pour votre recherche.</p>
+  </div>
+
+  <div class="row gy-4">
+    <div class="col-md-4" *ngFor="let artisan of artisans">
+      <a [routerLink]="['/artisan', artisan.slug]" class="text-decoration-none text-dark">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ artisan.name }}</h5>
+            <p class="mb-1">
+              <ng-container *ngFor="let star of getStarArray(artisan.note); let i = index">
+                <span [class.text-warning]="star" [class.text-muted]="!star">★</span>
+              </ng-container>
+            </p>
+            <p class="card-text">{{ artisan.specialty }}</p>
+            <p class="text-muted mt-auto">{{ artisan.location }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
