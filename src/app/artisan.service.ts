@@ -11,16 +11,33 @@ export class ArtisanService {
 
   constructor(private http: HttpClient) {}
 
-  // Génère un slug propre pour les URLs SEO-friendly
-  private createSlug(name: string): string {
-    return name
+  /**
+   * Normalise une chaîne de caractères :
+   * - enlève les accents
+   * - met en minuscules
+   * - supprime espaces superflus
+   */
+  private normalize(str: string): string {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // enlève les accents
       .toLowerCase()
-      .trim()
-      .replace(/[\s\W-]+/g, '-') // remplace espaces et caractères spéciaux par des "-"
-      .replace(/^-+|-+$/g, '');  // supprime les tirets au début et à la fin
+      .trim();
   }
 
-  // Ajoute dynamiquement le slug à chaque artisan
+  /**
+   * Génère un slug SEO-friendly à partir d'un nom
+   */
+  private createSlug(name: string): string {
+    return this.normalize(name)
+      .replace(/\s+/g, '-')      // remplace les espaces par des tirets
+      .replace(/[^\w-]+/g, '')   // supprime les caractères non alphanumériques sauf tiret
+      .replace(/^-+|-+$/g, '');  // supprime tirets en début et fin
+  }
+
+  /**
+   * Ajoute dynamiquement le slug à un artisan
+   */
   private enrichWithSlug(artisan: Artisan): Artisan & { slug: string } {
     return {
       ...artisan,
@@ -28,52 +45,65 @@ export class ArtisanService {
     };
   }
 
-  // Récupère tous les artisans en ajoutant le slug, avec gestion d'erreur
+  /**
+   * Récupère tous les artisans, avec ajout du slug,
+   * et gestion d'erreur (retourne tableau vide si erreur)
+   */
   getArtisans(): Observable<(Artisan & { slug: string })[]> {
     return this.http.get<Artisan[]>(this.dataUrl).pipe(
       map(artisans => artisans.map(this.enrichWithSlug.bind(this))),
       catchError(error => {
         console.error('Erreur lors du chargement des artisans :', error);
-        return of([]); // On retourne un tableau vide pour éviter les erreurs de composants
+        return of([]);
       })
     );
   }
 
-  // Récupère un artisan par son slug
+  /**
+   * Récupère un artisan selon son slug
+   */
   getArtisanBySlug(slug: string): Observable<(Artisan & { slug: string }) | undefined> {
     return this.getArtisans().pipe(
       map(artisans => artisans.find(artisan => artisan.slug === slug))
     );
   }
 
-  // Récupère les artisans d’une catégorie spécifique
-getArtisansByCategory(category: string): Observable<(Artisan & { slug: string })[]> {
-  return this.getArtisans().pipe(
-    map((artisans) =>
-      artisans.filter(
-        (artisan) =>
-          artisan.category.toLowerCase() === category.toLowerCase()
+  /**
+   * Récupère les artisans correspondant à une catégorie normalisée,
+   * avec ajout du slug déjà fait dans getArtisans()
+   */
+  getArtisansByCategory(category: string): Observable<(Artisan & { slug: string })[]> {
+    const normalizedCategory = this.normalize(category);
+    return this.getArtisans().pipe(
+      map(artisans =>
+        artisans.filter(artisan => this.normalize(artisan.category) === normalizedCategory)
       )
-    )
-  );
+    );
+  }
+
+  /**
+   * Recherche globale sur les artisans selon nom, spécialité, et localisation.
+   * Tous les filtres sont normalisés et ignorent la casse et accents.
+   */
+  getFilteredArtisans(filters: {
+    name: string;
+    specialty: string;
+    location: string;
+  }): Observable<(Artisan & { slug: string })[]> {
+    const normalizedName = this.normalize(filters.name);
+    const normalizedSpecialty = this.normalize(filters.specialty);
+    const normalizedLocation = this.normalize(filters.location);
+
+    return this.getArtisans().pipe(
+      map(artisans =>
+        artisans.filter(artisan => {
+          const matchesName = !normalizedName || this.normalize(artisan.name).includes(normalizedName);
+          const matchesSpecialty = !normalizedSpecialty || this.normalize(artisan.specialty).includes(normalizedSpecialty);
+          const matchesLocation = !normalizedLocation || this.normalize(artisan.location).includes(normalizedLocation);
+          return matchesName && matchesSpecialty && matchesLocation;
+        })
+      )
+    );
+  }
 }
 
-// Récupère les artisans correspondant à la recherche globale (nom, spécialité, ville)
-getFilteredArtisans(filters: {
-  name: string;
-  specialty: string;
-  location: string;
-}): Observable<(Artisan & { slug: string })[]> {
-  return this.getArtisans().pipe(
-    map((artisans) =>
-      artisans.filter((artisan) => {
-        const matchesName = !filters.name || artisan.name.toLowerCase().includes(filters.name.toLowerCase());
-        const matchesSpecialty = !filters.specialty || artisan.specialty.toLowerCase().includes(filters.specialty.toLowerCase());
-        const matchesLocation = !filters.location || artisan.location.toLowerCase().includes(filters.location.toLowerCase());
-
-        return matchesName && matchesSpecialty && matchesLocation;
-      })
-    )
-  );
-}
-}

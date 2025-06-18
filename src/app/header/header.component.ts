@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { SearchService } from '../search.service';
 import { ArtisanService } from '../artisan.service';
 
@@ -13,7 +11,7 @@ import { ArtisanService } from '../artisan.service';
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule, HttpClientModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   name = '';
@@ -27,7 +25,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private searchService: SearchService,
     private artisanService: ArtisanService,
-    private router: Router   
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
@@ -42,14 +40,9 @@ export class HeaderComponent implements OnInit {
     this.searchService.updateFilters({
       name: this.name,
       specialty: this.specialty,
-      location: this.location,
+      location: this.location
     });
 
-    // Après mise à jour, navigue vers la page des résultats
-    this.router.navigate(['/resultats']);
+    this.router.navigate(['/resultats']); // déclenche la redirection
   }
 }
-
-
-
-

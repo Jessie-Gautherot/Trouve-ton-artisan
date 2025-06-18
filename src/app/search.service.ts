@@ -1,25 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { SearchFilters } from './search.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SearchService {
   private filtersSubject = new BehaviorSubject<SearchFilters>({
     name: '',
     specialty: '',
-    location: ''   
+    location: ''
   });
 
-  filters$: Observable<SearchFilters> = this.filtersSubject.asObservable();
+  filters$ = this.filtersSubject.asObservable();
 
-  updateFilters(newFilters: Partial<SearchFilters>): void {
-    const currentFilters = this.filtersSubject.value;
-    this.filtersSubject.next({ ...currentFilters, ...newFilters });
-  }
-
-  getCurrentFilters(): SearchFilters {
-    return this.filtersSubject.value;
+  updateFilters(filters: SearchFilters): void {
+    this.filtersSubject.next(filters);
   }
 }

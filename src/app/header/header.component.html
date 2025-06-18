@@ -2,7 +2,7 @@
   <div class="container py-3">
     <nav class="navbar navbar-expand-lg p-0" aria-label="Menu principal">
       <a routerLink="/" class="navbar-brand fw-bold" title="Accueil">
-        <img src="assets/pictures/Logo.png" alt="Logo du site"/>
+        <img src="assets/pictures/Logo.png" alt="Logo du site" />
       </a>
 
       <!-- Bouton burger -->
@@ -13,24 +13,25 @@
         data-bs-target="#navbarNav"
         aria-controls="navbarNav"
         aria-expanded="false"
-        aria-label="Ouvrir ou fermer le menu">
+        aria-label="Ouvrir ou fermer le menu"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <!-- Menu burger -->
-       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a routerLink="/batiment" class="nav-link" title="Bâtiment">Bâtiment</a>
+            <a routerLink="/artisans/batiment" class="nav-link" title="Bâtiment">Bâtiment</a>
           </li>
           <li class="nav-item">
-            <a routerLink="/services" class="nav-link" title="Services">Services</a>
+            <a routerLink="/artisans/services" class="nav-link" title="Services">Services</a>
           </li>
           <li class="nav-item">
-            <a routerLink="/fabrication" class="nav-link" title="Fabrication">Fabrication</a>
+            <a routerLink="/artisans/fabrication" class="nav-link" title="Fabrication">Fabrication</a>
           </li>
           <li class="nav-item">
-            <a routerLink="/alimentation" class="nav-link" title="Alimentation">Alimentation</a>
+            <a routerLink="/artisans/alimentation" class="nav-link" title="Alimentation">Alimentation</a>
           </li>
         </ul>
       </div>
@@ -38,59 +39,60 @@
   </div>
 
   <!-- Champs de recherche -->
- <div class="container py-3 header-bottom">
-  <form
-    (ngSubmit)="onFilterChange()"
-    class="row g-2 align-items-center"
-    role="search"
-    aria-label="Formulaire de recherche d'artisans"
-  >
-    <div class="col-md-3">
-      <label for="nameSelect" class="form-label visually-hidden">Nom</label>
-      <select
-        id="nameSelect"
-        class="form-select"
-        [(ngModel)]="name"
-        name="name"
-        aria-label="Filtrer par nom"
-      >
-        <option value="">Nom</option>
-        <option *ngFor="let nameOption of allNames" [value]="nameOption">{{ nameOption }}</option>
-      </select>
-    </div>
+  <div class="container py-3 header-bottom">
+    <form
+      (ngSubmit)="onFilterChange()"
+      class="row g-2 align-items-center"
+      role="search"
+      aria-label="Formulaire de recherche d'artisans"
+    >
+      <div class="col-md-3">
+        <label for="nameSelect" class="form-label visually-hidden">Nom</label>
+        <select
+          id="nameSelect"
+          class="form-select"
+          [(ngModel)]="name"
+          name="name"
+          aria-label="Filtrer par nom"
+        >
+          <option value="">Nom</option>
+          <option *ngFor="let nameOption of allNames" [value]="nameOption">{{ nameOption }}</option>
+        </select>
+      </div>
 
-    <div class="col-md-3">
-      <label for="specialtySelect" class="form-label visually-hidden">Spécialité</label>
-      <select
-        id="specialtySelect"
-        class="form-select"
-        [(ngModel)]="specialty"
-        name="specialty"
-        aria-label="Filtrer par spécialité"
-      >
-        <option value="">Spécialité</option>
-        <option *ngFor="let spec of allSpecialties" [value]="spec">{{ spec }}</option>
-      </select>
-    </div>
+      <div class="col-md-3">
+        <label for="specialtySelect" class="form-label visually-hidden">Spécialité</label>
+        <select
+          id="specialtySelect"
+          class="form-select"
+          [(ngModel)]="specialty"
+          name="specialty"
+          aria-label="Filtrer par spécialité"
+        >
+          <option value="">Spécialité</option>
+          <option *ngFor="let spec of allSpecialties" [value]="spec">{{ spec }}</option>
+        </select>
+      </div>
 
-    <div class="col-md-3">
-      <label for="locationSelect" class="form-label visually-hidden">Localisation</label>
-      <select
-        id="locationSelect"
-        class="form-select"
-        [(ngModel)]="location"
-        name="location"
-        aria-label="Filtrer par localisation"
-      >
-        <option value="">Localisation</option>
-        <option *ngFor="let loc of allLocations" [value]="loc">{{ loc }}</option>
-      </select>
-    </div>
+      <div class="col-md-3">
+        <label for="locationSelect" class="form-label visually-hidden">Localisation</label>
+        <select
+          id="locationSelect"
+          class="form-select"
+          [(ngModel)]="location"
+          name="location"
+          aria-label="Filtrer par localisation"
+        >
+          <option value="">Localisation</option>
+          <option *ngFor="let loc of allLocations" [value]="loc">{{ loc }}</option>
+        </select>
+      </div>
 
-    <div class="col-md-3 text-end">
-      <button type="submit" class="btn btn-primary w-100" aria-label="Lancer la recherche">
-        Rechercher
-      </button>
-    </div>
-  </form>
-</div>
+      <div class="col-md-3 text-end">
+        <button type="submit" class="btn btn-primary w-100" aria-label="Lancer la recherche">
+          Rechercher
+        </button>
+      </div>
+    </form>
+  </div>
+</header>

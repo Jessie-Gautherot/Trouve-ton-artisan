@@ -21,7 +21,6 @@ export class TopArtisanComponent implements OnInit {
 
   // Hook Angular appelé après l'initialisation du composant
   ngOnInit(): void {
-    // On s'abonne à l'Observable renvoyé par le service pour récupérer les artisans
     this.artisanService.getArtisans().subscribe({
       next: artisans => {
         // Filtre les artisans avec la propriété top = true
