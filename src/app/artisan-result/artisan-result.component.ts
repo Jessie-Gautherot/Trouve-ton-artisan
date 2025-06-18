@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { ArtisanService } from '../artisan.service';
-import { Artisan } from '../artisan.model';
+import { ArtisanService} from '../artisan.service';
+import { ArtisanWithSlugAndNumberNote } from '../artisan.model';
 import { SearchService } from '../search.service';
 import { FilterArtisansPipe } from '../filter-artisan.pipe';
 
@@ -15,7 +15,7 @@ import { FilterArtisansPipe } from '../filter-artisan.pipe';
   styleUrls: ['./artisan-result.component.scss']
 })
 export class ArtisanResultComponent implements OnInit {
-  artisans: (Artisan & { slug: string })[] = [];
+  artisans: ArtisanWithSlugAndNumberNote[] = [];
   searchFilters = { name: '', specialty: '', location: '' };
 
   constructor(
@@ -33,9 +33,10 @@ export class ArtisanResultComponent implements OnInit {
     });
   }
 
-  getStarArray(note: string): boolean[] {
-    const rating = Math.round(parseFloat(note));
+  getStarArray(note: number): boolean[] {
+    const rating = Math.round(note);
     return Array.from({ length: 5 }, (_, i) => i < rating);
   }
 }
+
 

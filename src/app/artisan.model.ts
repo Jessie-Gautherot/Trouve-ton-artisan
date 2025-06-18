@@ -11,3 +11,8 @@ export interface Artisan {
   top: boolean;
   slug?: string; 
 }
+
+export interface ArtisanWithSlugAndNumberNote extends Omit<Artisan, 'note'> {
+  note: number;
+  slug: string;
+}

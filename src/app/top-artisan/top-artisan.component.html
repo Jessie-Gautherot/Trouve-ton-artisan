@@ -3,32 +3,43 @@
     <div class="bloc-title__marker marker-green"></div>
     <h2 class="bloc-title__title fs-1">Les trois artisans du mois</h2>
   </div>
-  <!-- Liste des artisans -->
+
   <div class="row g-4" role="list">
     <div
       class="col-md-4 d-flex flex-column align-items-center justify-content-center"
       *ngFor="let artisan of topArtisans"
-      role="listitem">
+      role="listitem"
+    >
       <article
         class="card h-100 border-0 shadow artisan-card w-100 d-flex flex-column"
-        [attr.aria-labelledby]="'artisan-' + artisan.id">
+        [attr.aria-labelledby]="'artisan-' + artisan.id"
+      >
         <div class="card-body text-center d-flex flex-column gap-3 flex-grow-1">
           <h3 class="card-title fs-2" [attr.id]="'artisan-' + artisan.id">
             {{ artisan.name }}
           </h3>
+
+          <!-- Étoiles avec note complète -->
           <p
             class="d-flex justify-content-center align-items-center gap-2 mb-2 rating text-warning"
-            [attr.aria-label]="'Note de ' + artisan.note + ' sur 5'">
-            <ng-container *ngFor="let star of getStarArray(artisan.note)">
-              <i
-                class="bi"
-                [ngClass]="star ? 'bi-star-fill' : 'bi-star'"
-                aria-hidden="true"
-              ></i>
+            [attr.aria-label]="'Note de ' + artisan.note + ' sur 5'"
+          >
+            <ng-container *ngFor="let _ of getFullStars(artisan.note)">
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
             </ng-container>
+
+            <ng-container *ngIf="hasHalfStar(artisan.note)">
+              <i class="bi bi-star-half" aria-hidden="true"></i>
+            </ng-container>
+
+            <ng-container *ngFor="let _ of getEmptyStars(artisan.note)">
+              <i class="bi bi-star" aria-hidden="true"></i>
+            </ng-container>
+
             <span class="note-text">{{ artisan.note }}/5</span>
             <span class="visually-hidden">Note : {{ artisan.note }} sur 5</span>
           </p>
+
           <p class="mb-1">
             <strong>Spécialité :</strong> {{ artisan.specialty }}
           </p>
@@ -40,8 +51,3 @@
     </div>
   </div>
 </section>
-
-
-
-
-

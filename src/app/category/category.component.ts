@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ArtisanService } from '../artisan.service';
-import { Artisan } from '../artisan.model';
+import { ArtisanWithSlugAndNumberNote } from '../artisan.model';
 
 @Component({
   selector: 'app-category',
@@ -13,7 +13,7 @@ import { Artisan } from '../artisan.model';
 })
 export class CategoryComponent implements OnInit {
   category = '';
-  artisans: (Artisan & { slug: string })[] = [];
+  artisans: ArtisanWithSlugAndNumberNote[] = [];
   loading = true;
   error = '';
 
@@ -24,7 +24,6 @@ export class CategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Récupérer le paramètre category dans l'URL
     this.route.paramMap.subscribe(params => {
       const categoryParam = params.get('category');
       if (!categoryParam) {
@@ -57,9 +56,15 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  // Génère un tableau booléen pour les étoiles à afficher
-  getStarArray(note: string): boolean[] {
-    const rating = Math.round(parseFloat(note));
-    return Array.from({ length: 5 }, (_, i) => i < rating);
+  getFullStars(note: number): number[] {
+    return Array(Math.floor(note)).fill(0);
+  }
+
+  hasHalfStar(note: number): boolean {
+    return note % 1 >= 0.5;
+  }
+
+  getEmptyStars(note: number): number[] {
+    return Array(5 - Math.ceil(note)).fill(0);
   }
 }
