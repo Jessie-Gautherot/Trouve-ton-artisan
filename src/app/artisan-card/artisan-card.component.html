@@ -1,36 +1,27 @@
 <article
-  class="artisan-card p-4 border rounded shadow-sm h-100 d-flex flex-column justify-content-between"
-  tabindex="0"
-  role="button"
-  (click)="navigateToDetails()"
-  (keydown.enter)="navigateToDetails()"
-  (keydown.space)="navigateToDetails()"
-  [attr.aria-label]="'Voir la fiche détaillée de ' + artisan.name"
+  class="artisan-card p-4 border rounded shadow-sm"
 >
-  <div class="mb-3">
-    <h2 class="h5 mb-1">{{ artisan.name }}</h2>
-    <p class="mb-1 text-muted">
-      <i class="bi bi-tools me-1"></i> {{ artisan.specialty }}
-    </p>
-    <p class="mb-1 text-muted">
-      <i class="bi bi-geo-alt-fill me-1"></i> {{ artisan.location }}
-    </p>
+  <h2 class="h5 mb-1">{{ artisan.name }}</h2>
+  <p class="mb-1 text-muted">
+    <i class="bi bi-tools me-1"></i> {{ artisan.specialty }}
+  </p>
+  <p class="mb-1 text-muted">
+    <i class="bi bi-geo-alt-fill me-1"></i> {{ artisan.location }}
+  </p>
 
-    <p class="mb-1 text-muted" [attr.aria-label]="'Note de ' + artisan.note + ' sur 5'">
-      <ng-container *ngFor="let icon of starIcons">
-        <i class="bi text-warning" [ngClass]="icon"></i>
-      </ng-container>
-      <span class="ms-2">{{ artisan.note }}/5</span>
-    </p>
-  </div>
+  <p class="mb-1 text-muted" [attr.aria-label]="'Note de ' + artisan.note + ' sur 5'">
+    <ng-container *ngFor="let icon of starIcons">
+      <i class="bi text-warning" [ngClass]="icon"></i>
+    </ng-container>
+    <span class="ms-2">{{ artisan.note }}/5</span>
+  </p>
 
-  <div class="mt-auto text-end">
-    <button
-      class="btn btn-outline-primary btn-sm"
-      type="button"
-      [attr.aria-label]="'Voir le profil complet de ' + artisan.name"
-    >
-      Voir le profil
-    </button>
-  </div>
+  <a
+    class="btn btn-outline-primary btn-sm"
+    [routerLink]="['/fiche-artisan', artisan.slug]"
+    [attr.aria-label]="'Voir le profil complet de ' + artisan.name"
+  >
+    Voir l'artisan
+  </a>
 </article>
+

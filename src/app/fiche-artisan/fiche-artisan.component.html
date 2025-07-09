@@ -1,5 +1,141 @@
-<div class="fiche-artisan">
-  <h2>{{ artisan.name }}</h2>
-  <p>{{ artisan.specialty }} – {{ artisan.location }}</p>
-  <p>Note : {{ artisan.note }}/5</p>
+<div *ngIf="artisan; else notFound" class="container py-5">
+  <!-- Header : nom, spécialité, localisation centrés -->
+  <div class="text-center mb-4">
+    <h1 class="display-4 fw-bold">{{ artisan.name }}</h1>
+    <p class="text-muted mb-1"><strong>Spécialité :</strong> {{ artisan.specialty }}</p>
+    <p class="text-muted mb-3"><strong>Localisation :</strong> {{ artisan.location }}</p>
+
+    <!-- Étoiles centrées -->
+    <div aria-label="Note de l'artisan" class="d-flex justify-content-center align-items-center mb-3">
+      <ng-container *ngFor="let icon of starIcons; let i = index">
+        <i class="bi" [ngClass]="icon" style="color: #f5c518; font-size: 1.8rem;" aria-hidden="true"></i>
+      </ng-container>
+      <span class="ms-2 text-muted fs-5">{{ artisan.note }}/5</span>
+    </div>
+  </div>
+
+  <!-- À propos pleine largeur -->
+  <section class="mb-5 pt-5">
+    <h2 class="fs-2 border-bottom pb-2 mb-3 text-center">À propos</h2>
+    <p class="fs-5 text-center">{{ artisan.about }}</p>
+  </section>
+
+  <!-- Site web centré -->
+  <div *ngIf="artisan.website" class="text-center mb-5">
+    <a
+      [href]="artisan.website"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-outline-secondary btn-lg"
+      >Visiter le site web</a
+    >
+  </div>
+
+  <!-- Formulaire de contact responsive -->
+  <section class="mx-auto pt-5" style="max-width: 650px;">
+    <h2 class="fs-2 mb-4 text-center">Contacter cet artisan</h2>
+    <form
+      [formGroup]="contactForm"
+      (ngSubmit)="onSubmit()"
+      novalidate
+      autocomplete="off"
+      class="needs-validation"
+      [class.was-validated]="submitted"
+    >
+      <div class="row g-3 mb-3">
+        <div class="col-12 col-md-6">
+          <label for="name" class="form-label fw-semibold">Votre nom</label>
+          <input
+            id="name"
+            type="text"
+            class="form-control"
+            formControlName="name"
+            [class.is-invalid]="isInvalid('name')"
+            (blur)="contactForm.get('name')?.markAsTouched()"
+            aria-describedby="nameError"
+            required
+          />
+          <div
+            *ngIf="isInvalid('name')"
+            id="nameError"
+            class="invalid-feedback"
+            role="alert"
+          >
+            {{ getErrorMessage('name') }}
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label for="subject" class="form-label fw-semibold">Objet</label>
+          <input
+            id="subject"
+            type="text"
+            class="form-control"
+            formControlName="subject"
+            [class.is-invalid]="isInvalid('subject')"
+            (blur)="contactForm.get('subject')?.markAsTouched()"
+            aria-describedby="subjectError"
+            required
+          />
+          <div
+            *ngIf="isInvalid('subject')"
+            id="subjectError"
+            class="invalid-feedback"
+            role="alert"
+          >
+            {{ getErrorMessage('subject') }}
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="message" class="form-label fw-semibold">Message</label>
+        <textarea
+          id="message"
+          rows="5"
+          class="form-control"
+          formControlName="message"
+          [class.is-invalid]="isInvalid('message')"
+          (blur)="contactForm.get('message')?.markAsTouched()"
+          aria-describedby="messageError"
+          required
+        ></textarea>
+        <div
+          *ngIf="isInvalid('message')"
+          id="messageError"
+          class="invalid-feedback"
+          role="alert"
+        >
+          {{ getErrorMessage('message') }}
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button
+          type="submit"
+          class="btn btn-primary px-5"
+          [disabled]="contactForm.invalid || submitting"
+          aria-live="polite"
+        >
+          {{ submitting ? 'Envoi en cours…' : 'Envoyer' }}
+        </button>
+      </div>
+    </form>
+
+    <div
+      *ngIf="success"
+      class="alert alert-success mt-4"
+      role="alert"
+      aria-live="polite"
+    >
+      Message envoyé avec succès ! Une réponse vous sera donnée sous 48H.
+    </div>
+  </section>
 </div>
+
+<ng-template #notFound>
+  <div class="container py-5 text-center">
+    <h2>Artisan introuvable</h2>
+    <p>Nous n’avons pas pu trouver cet artisan. Retournez à l’accueil.</p>
+  </div>
+</ng-template>

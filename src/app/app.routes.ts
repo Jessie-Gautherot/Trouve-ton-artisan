@@ -5,13 +5,13 @@ import { CategoryComponent } from './category/category.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Accueil' },
-  { path: 'resultats', component: ArtisanResultComponent },
+  { path: 'resultats', component: ArtisanResultComponent, title: 'Résultats des artisans' },
   { path: 'artisans/:category', component: CategoryComponent, title: 'Artisans par catégorie' },
   {
-    path: 'fiche/:slug',
+    path: 'fiche-artisan/:slug',
     loadComponent: () =>
       import('./fiche-artisan/fiche-artisan.component').then(m => m.FicheArtisanComponent),
     title: 'Fiche artisan'
-  }
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' }  // Route 404 redirige vers accueil
 ];
-
