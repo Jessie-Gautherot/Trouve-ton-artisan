@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
-import { ArtisanService} from '../artisan.service';
+import { RouterModule } from '@angular/router'; 
+import { ArtisanService } from '../artisan.service';
 import { ArtisanWithSlugAndNumberNote } from '../artisan.model';
-
+import { ArtisanCardComponent } from '../artisan-card/artisan-card.component'; 
 
 @Component({
   selector: 'app-top-artisan',
   standalone: true,
-  imports: [CommonModule, NgFor],
+  imports: [CommonModule, NgFor, RouterModule, ArtisanCardComponent],
   templateUrl: './top-artisan.component.html',
   styleUrls: ['./top-artisan.component.scss']
 })
@@ -21,7 +22,7 @@ export class TopArtisanComponent implements OnInit {
       next: artisans => {
         this.topArtisans = artisans
           .filter(a => a.top)
-          .sort((a, b) => b.note - a.note) 
+          .sort((a, b) => b.note - a.note)
           .slice(0, 3);
       },
       error: err => {
@@ -29,17 +30,5 @@ export class TopArtisanComponent implements OnInit {
         this.topArtisans = [];
       }
     });
-  }
-
-  getFullStars(note: number): number[] {
-    return Array(Math.floor(note)).fill(0);
-  }
-
-  hasHalfStar(note: number): boolean {
-    return note % 1 >= 0.5;
-  }
-
-  getEmptyStars(note: number): number[] {
-    return Array(5 - Math.ceil(note)).fill(0);
   }
 }

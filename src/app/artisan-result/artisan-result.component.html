@@ -1,33 +1,14 @@
-<div class="container mt-4">
-  <!-- Message si aucun artisan -->
-  <div *ngIf="(artisans | filterArtisans: searchFilters).length === 0" class="alert alert-warning text-center">
-    Aucun artisan trouvé.
+<section class="container my-5" aria-label="Résultats de recherche des artisans">
+  <h1 class="mb-4">Votre recherche</h1>
+
+  <div *ngIf="(artisans | filterArtisans:searchFilters).length === 0" class="alert alert-warning" role="status">
+    Aucun artisan ne correspond à votre recherche.
   </div>
 
-  
   <div class="row g-4">
-    <div
-      *ngFor="let artisan of artisans | filterArtisans: searchFilters"
-      class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex"
-    >
-      <div class="card flex-fill shadow-sm h-100">
-        <div class="card-body d-flex flex-column justify-content-between">
-          <div>
-            <h5 class="card-title">{{ artisan.name }}</h5>
-            <p class="card-text mb-1"><strong>Spécialité :</strong> {{ artisan.specialty }}</p>
-            <p class="card-text mb-1"><strong>Localisation :</strong> {{ artisan.location }}</p>
-          </div>
-
-          
-          <div class="mt-2" [attr.aria-label]="'Note de ' + artisan.note + ' sur 5'" role="img">
-            <strong>Note :</strong>
-            <ng-container *ngFor="let star of getStarArray(artisan.note)">
-              <i class="bi" [ngClass]="star ? 'bi-star-fill text-warning' : 'bi-star text-muted'" aria-hidden="true"></i>
-            </ng-container>
-          </div>
-
-        </div>
-      </div>
+    <div class="col-md-6 col-lg-4" *ngFor="let artisan of artisans | filterArtisans:searchFilters">
+      <app-artisan-card [artisan]="artisan" />
     </div>
   </div>
-</div>
+</section>
+

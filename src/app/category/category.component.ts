@@ -3,11 +3,12 @@ import { CommonModule, NgFor } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ArtisanService } from '../artisan.service';
 import { ArtisanWithSlugAndNumberNote } from '../artisan.model';
+import { ArtisanCardComponent } from '../artisan-card/artisan-card.component';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgFor],
+  imports: [CommonModule, RouterModule, NgFor, ArtisanCardComponent],
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
