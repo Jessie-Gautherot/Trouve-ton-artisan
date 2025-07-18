@@ -41,6 +41,7 @@ h1 {
   color: $headings-color;
   font-size: 4rem;
   margin-bottom: 2rem;
+  font-weight: 700;
 }
 
 h2, h3, .bloc-title__title {
@@ -75,7 +76,7 @@ h2, h3, .bloc-title__title {
 }
 
 .footer {
-  background-color: $primary;
+  background-color: $blue;
 }
 
 
@@ -95,7 +96,7 @@ ul, ol {
       content: "";
       width: 1rem;
       height: 0.3rem;
-      background-color: $primary;
+      background-color: $blue;
       flex-shrink: 0;
       border-radius: 2px;
     }
@@ -106,4 +107,20 @@ ul.no-markers li::before {
   content: none;
 }
 
+
+.btn-custom {
+  background-color: $blue;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 50px; 
+  transition: background-color 0.3s ease;
+
+  &:hover,
+  &:focus {
+    background-color: $headings-color;
+    color: #fff;
+    text-decoration: none;
+  }
+}
 

@@ -1,7 +1,7 @@
-<header class="header shadow-sm bg-white">
+<header class="header shadow-sm border-bottom">
   <div class="container py-3">
-    <nav class="navbar navbar-expand-lg p-0" aria-label="Menu principal">
-      <a routerLink="/" class="navbar-brand fw-bold" title="Accueil">
+    <nav class="navbar navbar-expand-lg navbar-light p-0" role="navigation" aria-label="Menu principal">
+      <a routerLink="/" class="navbar-brand">
         <img src="assets/pictures/Logo.png" alt="Logo du site" />
       </a>
 
@@ -19,8 +19,8 @@
       </button>
 
       <!-- Menu burger -->
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
+      <div class="collapse navbar-collapse justify-content-center text-center flex-column" id="navbarNav">
+        <ul class="navbar-nav gap-2">
           <li class="nav-item">
             <a routerLink="/artisans/batiment" class="nav-link" title="Bâtiment">Bâtiment</a>
           </li>
@@ -52,9 +52,7 @@
           id="nameSelect"
           class="form-select"
           [(ngModel)]="name"
-          name="name"
-          aria-label="Filtrer par nom"
-        >
+          name="name">
           <option value="">Nom</option>
           <option *ngFor="let nameOption of allNames" [value]="nameOption">{{ nameOption }}</option>
         </select>
@@ -66,9 +64,7 @@
           id="specialtySelect"
           class="form-select"
           [(ngModel)]="specialty"
-          name="specialty"
-          aria-label="Filtrer par spécialité"
-        >
+          name="specialty">
           <option value="">Spécialité</option>
           <option *ngFor="let spec of allSpecialties" [value]="spec">{{ spec }}</option>
         </select>
@@ -80,16 +76,18 @@
           id="locationSelect"
           class="form-select"
           [(ngModel)]="location"
-          name="location"
-          aria-label="Filtrer par localisation"
-        >
+          name="location">
           <option value="">Localisation</option>
           <option *ngFor="let loc of allLocations" [value]="loc">{{ loc }}</option>
         </select>
       </div>
 
       <div class="col-md-3 text-end">
-        <button type="submit" class="btn btn-primary w-100 rounded-pill" aria-label="Lancer la recherche">
+        <button
+          type="submit"
+          class="btn btn-primary w-100 rounded-pill"
+          aria-label="Lancer la recherche"
+        >
           Rechercher
         </button>
       </div>

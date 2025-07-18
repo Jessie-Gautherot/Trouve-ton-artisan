@@ -2,7 +2,7 @@
 
 
 .visually-hidden {
-  position: absolute !important;
+  position: absolute;
   width: 1px;
   height: 1px;
   padding: 0;
@@ -36,10 +36,7 @@
 
 .bi-telephone-fill {
   font-size: 1.2rem;
-  color: $blue,
-  vertical-align middle;
 }
-
 
 .footer-line {
   height: 1px;

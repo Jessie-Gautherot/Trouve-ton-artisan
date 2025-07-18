@@ -1,5 +1,5 @@
 <article
-  class="artisan-card p-4 border rounded shadow-sm"
+  class="p-4 border rounded shadow-sm"
 >
   <h2 class="h5 mb-1">{{ artisan.name }}</h2>
   <p class="mb-1 text-muted">
@@ -17,7 +17,7 @@
   </p>
 
   <a
-    class="btn btn-outline-primary btn-sm rounded-pill"
+    class="btn btn-custom btn-sm rounded-pill"
     [routerLink]="['/fiche-artisan', artisan.slug]"
     [attr.aria-label]="'Voir le profil complet de ' + artisan.name"
   >

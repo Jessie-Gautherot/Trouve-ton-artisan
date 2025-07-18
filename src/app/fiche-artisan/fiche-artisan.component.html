@@ -1,4 +1,4 @@
-<div *ngIf="artisan; else notFound" class="container py-5">
+<section *ngIf="artisan; else notFound" class="container py-5" aria-label="Fiche détaillée de l'artisan">
   <!-- Header : nom, spécialité, localisation centrés -->
   <div class="text-center mb-4">
     <h1 class="display-4 fw-bold">{{ artisan.name }}</h1>
@@ -26,13 +26,13 @@
       [href]="artisan.website"
       target="_blank"
       rel="noopener noreferrer"
-      class="btn btn-outline-secondary btn-lg"
+      class="btn btn-custom btn-lg"
       >Visiter le site web</a
     >
   </div>
 
   <!-- Formulaire de contact responsive -->
-  <section class="mx-auto pt-5" style="max-width: 650px;">
+  <section class="form mx-auto pt-5">
     <h2 class="fs-2 mb-4 text-center">Contacter cet artisan</h2>
     <form
       [formGroup]="contactForm"
@@ -51,9 +51,11 @@
             class="form-control"
             formControlName="name"
             [class.is-invalid]="isInvalid('name')"
+            [attr.aria-invalid]="isInvalid('name')"
             (blur)="contactForm.get('name')?.markAsTouched()"
             aria-describedby="nameError"
             required
+            aria-required="true"
           />
           <div
             *ngIf="isInvalid('name')"
@@ -66,16 +68,18 @@
         </div>
 
         <div class="col-12 col-md-6">
-          <label for="subject" class="form-label fw-semibold">Objet</label>
+          <label for="subject" class="form-label fw-semibold">Objet du message</label>
           <input
             id="subject"
             type="text"
             class="form-control"
             formControlName="subject"
             [class.is-invalid]="isInvalid('subject')"
+            [attr.aria-invalid]="isInvalid('subject')"
             (blur)="contactForm.get('subject')?.markAsTouched()"
             aria-describedby="subjectError"
             required
+            aria-required="true"
           />
           <div
             *ngIf="isInvalid('subject')"
@@ -96,9 +100,11 @@
           class="form-control"
           formControlName="message"
           [class.is-invalid]="isInvalid('message')"
+          [attr.aria-invalid]="isInvalid('message')"
           (blur)="contactForm.get('message')?.markAsTouched()"
           aria-describedby="messageError"
           required
+          aria-required="true"
         ></textarea>
         <div
           *ngIf="isInvalid('message')"
@@ -128,14 +134,15 @@
       role="alert"
       aria-live="polite"
     >
-      Message envoyé avec succès ! Une réponse vous sera donnée sous 48H.
+      Message envoyé avec succès ! Une réponse vous sera donnée sous 48 h.
     </div>
   </section>
-</div>
+</section>
 
 <ng-template #notFound>
-  <div class="container py-5 text-center">
+  <section class="container py-5 text-center" aria-label="Artisan introuvable">
     <h2>Artisan introuvable</h2>
     <p>Nous n’avons pas pu trouver cet artisan. Retournez à l’accueil.</p>
-  </div>
+  </section>
 </ng-template>
+

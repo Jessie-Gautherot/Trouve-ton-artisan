@@ -26,6 +26,16 @@ header .navbar-brand img {
   width: auto;    
 }
 
-.form-control {
-  border: 1px solid rgb(238, 238, 18);
+.form-label,
+select.form-select {
+  background-color: #fffbea;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease;
+}
+
+select.form-select:focus {
+  background-color: #fff;
+  border-color: #66afe9;
+  outline: none;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
 }

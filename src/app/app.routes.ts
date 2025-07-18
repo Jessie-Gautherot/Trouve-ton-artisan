@@ -15,15 +15,15 @@ export const routes: Routes = [
   {
     path: 'resultats',
     component: ArtisanResultComponent,
-    title: 'Résultats des artisans',
+    title: 'Résultats de votre recherche',
     data: {
-      description: 'Résultats de votre recherche.'
+      description: 'Liste des artisans trouvés, selon la nom, la spécialité et la ville recherché.'
     }
   },
   {
     path: 'artisans/:category',
     component: CategoryComponent,
-    title: 'Artisans par catégorie',
+    title: 'Nos artisans par catégorie',
     data: {
       description: 'Explorez nos artisans classés par catégories professionnelles.'
     }
@@ -34,14 +34,14 @@ export const routes: Routes = [
       import('./fiche-artisan/fiche-artisan.component').then(m => m.FicheArtisanComponent),
     title: 'Fiche artisan',
     data: {
-      description: 'Détails et coordonnées complètes de l’artisan sélectionné.'
+      description: 'Informations et formulaire de contact de l’artisan sélectionné.'
     }
   },
   {
     path: '**',
     loadComponent: () =>
       import('./page-404/page-404.component').then(m => m.Page404Component),
-    title: '404 - Page non trouvée',
+    title: 'erreur 404 - Page non trouvée',
     data: {
       description: 'La page que vous recherchez n’existe pas. Retournez à l’accueil.'
     }

@@ -2,13 +2,13 @@
   class="container my-5"
   [attr.aria-label]="'Liste des artisans de la catégorie ' + category"
 >
-  <h1 class="mb-4 text-capitalize"> Catégorie {{ category }}</h1>
+  <h1 class="mb-4 text-capitalize fs-1"> Catégorie {{ category }}</h1>
 
   <div *ngIf="loading" class="text-center my-5">
     Chargement des artisans...
   </div>
 
-  <div *ngIf="error && !loading" class="alert alert-warning" role="status">
+  <div *ngIf="error && !loading" class="alert alert-custom" role="status">
     {{ error }}
   </div>
 

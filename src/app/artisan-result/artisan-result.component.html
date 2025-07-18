@@ -1,8 +1,8 @@
 <section class="container my-5" aria-label="Résultats de recherche des artisans">
   <h1 class="mb-4">Votre recherche</h1>
 
-  <div *ngIf="(artisans | filterArtisans:searchFilters).length === 0" class="alert alert-warning" role="status">
-    Aucun artisan ne correspond à votre recherche.
+  <div *ngIf="(artisans | filterArtisans:searchFilters).length === 0" class="alert" role="status">
+    Aucun résultat ne correspond à votre recherche.
   </div>
 
   <div class="row g-4">
