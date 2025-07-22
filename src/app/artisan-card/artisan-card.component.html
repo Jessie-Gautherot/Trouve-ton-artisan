@@ -1,21 +1,23 @@
 <article
-  class="p-4 border rounded shadow-sm"
->
+  class="p-4 border rounded shadow-sm">
+  <!-- Nom de l'artisan actuel -->
   <h2 class="h5 mb-1">{{ artisan.name }}</h2>
+  <!-- Spécialité de l'artisan actuel -->
   <p class="mb-1 text-muted">
     <i class="bi bi-tools me-1"></i> {{ artisan.specialty }}
   </p>
+  <!-- Localisation de l'artisan actuel -->
   <p class="mb-1 text-muted">
     <i class="bi bi-geo-alt-fill me-1"></i> {{ artisan.location }}
   </p>
-
+  <!-- Note sous forme d'étoiles -->
   <p class="mb-1 text-muted" [attr.aria-label]="'Note de ' + artisan.note + ' sur 5'">
     <ng-container *ngFor="let icon of starIcons">
       <i class="bi text-warning" [ngClass]="icon"></i>
     </ng-container>
     <span class="ms-2">{{ artisan.note }}/5</span>
   </p>
-
+  <!-- Lien vers la fiche détaillée de l'artisan actuel -->
   <a
     class="btn btn-custom btn-sm rounded-pill"
     [routerLink]="['/fiche-artisan', artisan.slug]"

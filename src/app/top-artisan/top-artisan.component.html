@@ -1,16 +1,15 @@
-<section class="container my-5" aria-label="Les trois artisans du mois">
+<!-- Les 3 artisans du mois -->
+ <section class="container my-5" aria-label="Les trois artisans du mois">
   <div class="bloc-title">
     <div class="bloc-title__marker marker-green"></div>
     <h2 class="bloc-title__title fs-1">Les trois artisans du mois</h2>
   </div>
-
+<!-- itération sur les artisans "top" et affichage avec le composant artisan-card -->
   <div class="row g-4" role="list">
     <div
       class="col-md-4"
       *ngFor="let artisan of topArtisans"
-      role="listitem"
-    >
-      <!-- Utilisation du composant de la card -->
+      role="listitem">
       <app-artisan-card [artisan]="artisan"></app-artisan-card>
     </div>
   </div>

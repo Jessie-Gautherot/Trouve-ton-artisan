@@ -1,3 +1,4 @@
+//Composant chargé de l'affichage des informations d’un artisan dans une carte 
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
@@ -11,14 +12,9 @@ import { ArtisanWithSlugAndNumberNote } from '../artisan.model';
   styleUrls: ['./artisan-card.component.scss']
 })
 export class ArtisanCardComponent {
+  // Artisan à afficher, injecté depuis le composant parent
   @Input() artisan!: ArtisanWithSlugAndNumberNote;
-
-  constructor(private router: Router) {}
-
-  navigateToDetails(): void {
-    this.router.navigate(['/artisans', this.artisan.slug]);
-  }
-
+  // Calcule dynamiquement les classes d’icônes à afficher pour la note (0 à 5 étoiles)
   get starIcons(): string[] {
     const icons: string[] = [];
     const full = Math.floor(this.artisan.note);

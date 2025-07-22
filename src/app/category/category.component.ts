@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ArtisanService } from '../artisan.service';
 import { ArtisanWithSlugAndNumberNote } from '../artisan.model';
 import { ArtisanCardComponent } from '../artisan-card/artisan-card.component';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-category',
@@ -12,60 +14,52 @@ import { ArtisanCardComponent } from '../artisan-card/artisan-card.component';
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
   category = '';
   artisans: ArtisanWithSlugAndNumberNote[] = [];
   loading = true;
   error = '';
 
+  private destroy$ = new Subject<void>();
+
   constructor(
     private route: ActivatedRoute,
     private artisanService: ArtisanService,
-    public router: Router
   ) {}
-
+   // Abonnement aux changements d'URL pour charger les artisans de la catégorie sélectionnée
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const categoryParam = params.get('category');
-      if (!categoryParam) {
-        this.error = 'Catégorie non spécifiée.';
-        this.loading = false;
-        return;
-      }
-      this.category = categoryParam;
-      this.loadArtisansByCategory();
-    });
+    this.route.paramMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        const categoryParam = params.get('category');
+        if (!categoryParam) {
+          this.error = 'Catégorie non spécifiée.';
+          this.loading = false;
+          return;
+        }
+        this.category = categoryParam;
+        this.loadArtisansByCategory();
+      });
   }
-
+  // Charge les artisans correspondants à la catégorie actuelle
   private loadArtisansByCategory(): void {
     this.loading = true;
     this.artisanService.getArtisansByCategory(this.category).subscribe({
       next: (artisans) => {
         this.artisans = artisans;
         this.loading = false;
-        if (this.artisans.length === 0) {
-          this.error = `Aucun artisan trouvé pour la catégorie "${this.category}".`;
-        } else {
-          this.error = '';
-        }
+        this.error = artisans.length === 0 ? `Aucun artisan trouvé pour la catégorie "${this.category}".` : '';
       },
-      error: (err) => {
-        console.error('Erreur lors du chargement des artisans:', err);
+      error: () => {
         this.error = 'Une erreur est survenue lors du chargement des artisans.';
         this.loading = false;
       }
     });
   }
-
-  getFullStars(note: number): number[] {
-    return Array(Math.floor(note)).fill(0);
-  }
-
-  hasHalfStar(note: number): boolean {
-    return note % 1 >= 0.5;
-  }
-
-  getEmptyStars(note: number): number[] {
-    return Array(5 - Math.ceil(note)).fill(0);
+  // Nettoyage de l'abonnement lors de la destruction du composant 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
+

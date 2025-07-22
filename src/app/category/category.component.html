@@ -2,19 +2,20 @@
   class="container my-5"
   [attr.aria-label]="'Liste des artisans de la catégorie ' + category"
 >
-  <h1 class="mb-4 text-capitalize fs-1"> Catégorie {{ category }}</h1>
-
+  <h1 class="mb-4 text-capitalize fs-1">Catégorie {{ category }}</h1>
+  <!-- Affichage du message de chargement -->
   <div *ngIf="loading" class="text-center my-5">
     Chargement des artisans...
   </div>
-
-  <div *ngIf="error && !loading" class="alert alert-custom" role="status">
+  <!-- Affichage d'un message d'erreur si la requête échoue ou si aucun artisan n'est trouvé -->
+  <div *ngIf="error && !loading" class="alert-custom-red" role="alert" aria-live="polite">
     {{ error }}
   </div>
-
+  <!-- Affichage de la grille des artisans si les données sont disponibles -->
   <div class="row g-4" *ngIf="!loading && artisans.length > 0">
     <div class="col-md-6 col-lg-4" *ngFor="let artisan of artisans">
       <app-artisan-card [artisan]="artisan"></app-artisan-card>
     </div>
   </div>
 </section>
+

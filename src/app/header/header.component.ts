@@ -17,32 +17,33 @@ export class HeaderComponent implements OnInit {
   name = '';
   specialty = '';
   location = '';
-
+  // Liste des options disponibles dans les menus déroulants
   allNames: string[] = [];
   allSpecialties: string[] = [];
   allLocations: string[] = [];
 
   constructor(
-    private searchService: SearchService,
-    private artisanService: ArtisanService,
+    private searchService: SearchService, 
+    private artisanService: ArtisanService, 
     private router: Router 
   ) {}
-
   ngOnInit(): void {
+    // Charge tous les artisans pour extraire les options uniques à afficher dans les <select>.
     this.artisanService.getArtisans().subscribe(artisans => {
       this.allNames = [...new Set(artisans.map(a => a.name))];
       this.allSpecialties = [...new Set(artisans.map(a => a.specialty))];
       this.allLocations = [...new Set(artisans.map(a => a.location))];
     });
   }
-
+  
+  // Mise à jour des filtres dans SearchService à la soumission
   onFilterChange(): void {
     this.searchService.updateFilters({
       name: this.name,
       specialty: this.specialty,
       location: this.location
     });
-
-    this.router.navigate(['/resultats']); // déclenche la redirection
+    
+    this.router.navigate(['/resultats']); 
   }
 }

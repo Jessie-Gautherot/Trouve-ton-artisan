@@ -15,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'trouve-ton-artisan';
 
   constructor(
     private router: Router,
@@ -25,7 +24,7 @@ export class AppComponent {
   ) {
     this.handleRouteChanges();
   }
-
+  // Ecoute des changements de routes
   private handleRouteChanges(): void {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
@@ -40,12 +39,12 @@ export class AppComponent {
       filter(route => route.outlet === 'primary'),
       mergeMap(route => route.data)
     ).subscribe(data => {
-      // Met à jour le titre de la page
+      // Mise à jour dynamique du titre de la page
       if (data['title']) {
         this.titleService.setTitle(data['title']);
       }
 
-      // Met à jour la description meta
+      // Mise à jour dynamique de la description meta de la page
       if (data['description']) {
         this.metaService.updateTag({ name: 'description', content: data['description'] });
       }

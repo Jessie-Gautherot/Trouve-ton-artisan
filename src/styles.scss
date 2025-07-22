@@ -51,7 +51,6 @@ h2, h3, .bloc-title__title {
   margin: 0;
 }
 
-
 .bloc-title {
   display: flex;
   flex-direction: column;
@@ -79,8 +78,6 @@ h2, h3, .bloc-title__title {
   background-color: $blue;
 }
 
-
-
 ul, ol {
   list-style: none;
   padding: 0;
@@ -107,7 +104,6 @@ ul.no-markers li::before {
   content: none;
 }
 
-
 .btn-custom {
   background-color: $blue;
   color: #ffffff;
@@ -122,5 +118,13 @@ ul.no-markers li::before {
     color: #fff;
     text-decoration: none;
   }
+}
+
+.alert-custom-green {
+  color: $line-green
+}
+
+.alert-custom-red {
+  color : $line-red
 }
 
