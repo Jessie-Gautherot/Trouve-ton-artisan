@@ -1,8 +1,10 @@
 <section
   class="container my-5"
-  [attr.aria-label]="'Liste des artisans de la catégorie ' + category"
->
-  <h1 class="mb-4 text-capitalize fs-1">Catégorie {{ category }}</h1>
+  [attr.aria-label]="'Liste des artisans de la catégorie ' + category">
+  <div class="bloc-title">
+    <div class="bloc-title__marker marker-red"></div>
+    <h1 class="bloc-title__title text-capitalize">Catégorie {{ category }}</h1>
+  </div>
   <!-- Affichage du message de chargement -->
   <div *ngIf="loading" class="text-center my-5">
     Chargement des artisans...
