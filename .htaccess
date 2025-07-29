@@ -1,0 +1,22 @@
+# Bloquer l'affichage du contenu des dossiers
+Options -Indexes
+
+# Protéger le fichier .htaccess lui-même
+<Files .htaccess>
+  Require all denied
+</Files>
+
+# Empêcher l'accès aux fichiers de configuration et sensibles
+<FilesMatch "\.(env|ini|log|sh|inc|bak|psd|sql|twig|tpl)$">
+  Require all denied
+</FilesMatch>
+
+# Forcer la redirection vers HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Empêcher le hotlinking des images (et autres fichiers)
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https?://(www\.)?ton-domaine\.com/ [NC]
+RewriteRule \.(jpg|jpeg|png|gif|bmp|webp|svg|ico)$ - [F,NC,L]
