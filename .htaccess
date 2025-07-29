@@ -16,7 +16,4 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Empêcher le hotlinking des images (et autres fichiers)
-RewriteCond %{HTTP_REFERER} !^$
-RewriteCond %{HTTP_REFERER} !^https?://(www\.)?ton-domaine\.com/ [NC]
-RewriteRule \.(jpg|jpeg|png|gif|bmp|webp|svg|ico)$ - [F,NC,L]
+
